@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:animation_demo/animated_switcher.dart';
 import 'package:flutter/material.dart';
 
 class MyAnimation extends StatefulWidget {
@@ -10,7 +11,7 @@ class MyAnimation extends StatefulWidget {
 }
 
 class _MyAnimationState extends State<MyAnimation>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   late Animation<Color?> _color;
@@ -55,17 +56,25 @@ class _MyAnimationState extends State<MyAnimation>
         child: AnimatedBuilder(
           animation: _animation,
           builder: (context, child) {
-            return Transform.scale(
-              scale: _animation.value,
-              child: Container(
-                height: _size.value!.height,
-                width: _size.value!.width,
-                color: _color.value,
+            return Hero(
+              tag: 'hero-tag',
+              child: Transform.scale(
+                scale: _animation.value,
+                child: Container(
+                  height: _size.value!.height,
+                  width: _size.value!.width,
+                  color: _color.value,
+                ),
               ),
             );
           },
+
         ),
+        
       ),
+    floatingActionButton: FloatingActionButton(onPressed: (){
+      Navigator.push(context, MaterialPageRoute(builder: (ctx)=>AnimatedSwitch()));
+    }),
     );
   }
 }
