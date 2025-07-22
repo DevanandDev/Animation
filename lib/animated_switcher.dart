@@ -1,3 +1,4 @@
+import 'package:animation_demo/animated_list.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedSwitch extends StatefulWidget {
@@ -37,10 +38,7 @@ class _AnimatedSwitchState extends State<AnimatedSwitch>
       ),
     );
 
-    _slide = Tween<Offset>(
-      begin: Offset(0, 1), 
-      end: Offset(0, 0),  
-    ).animate(
+    _slide = Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0)).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Interval(0.6, 1.0, curve: Curves.easeOut),
@@ -75,19 +73,27 @@ class _AnimatedSwitchState extends State<AnimatedSwitch>
                       scale: _scale.value,
                       child: SlideTransition(
                         position: _slide,
-                        child: Container(
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            color: Colors.amberAccent,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 15,
-                                color: Colors.black26,
-                                offset: Offset(0, 8),
-                              ),
-                            ],
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (ctx) => MyList()),
+                            );
+                          },
+                          child: Container(
+                            height: 200,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              color: Colors.amberAccent,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 15,
+                                  color: Colors.black,
+                                  offset: Offset(0, 8),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
